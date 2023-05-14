@@ -15,4 +15,4 @@ scenario = BudgetSolver.FixedICC(starting_budget, income, fixed_costs)
 
 # println(scenario)
 
-solution = BudgetSolver.ipopt_solve(scenario, ideal_costs, overall_interest)
+solution = BudgetSolver.ipopt_solve(scenario, ideal_costs, inflation_rate = overall_interest)
