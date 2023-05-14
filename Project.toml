@@ -1,0 +1,4 @@
+name = "BudgetSolver"
+uuid = "64a45d5d-eb3a-4e81-8c50-4035a30adb1f"
+authors = ["Markus-Amano <markus.a.amano@gmail.com>"]
+version = "0.1.0"
