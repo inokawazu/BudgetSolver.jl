@@ -45,7 +45,7 @@ struct BudgetSolverResult{T <: Real}
 end
 
 function ipopt_solve(
-        bs, ideal_costs::AbstractVector, inflation_rate::Real; verbosity::Int=0)
+        bs, ideal_costs::AbstractVector; verbosity::Int=0, inflation_rate::Real=0.0, interest_rate::Real=0.0)
     m = Model()
     set_optimizer(m, Ipopt.Optimizer)
     set_attribute(m, "print_level", verbosity)
@@ -61,8 +61,9 @@ function ipopt_solve(
     I = income(bs)
     Cf = fixed_costs(bs)
     rho = inflation_rate
+    rha = interest_rate
 
-    @constraint(m, [t in 1:ntimesteps(bs)], B[t] == (1 - rho)*B[t-1] + I[t] - C[t])
+    @constraint(m, [t in 1:ntimesteps(bs)], B[t] == (1 - rho)*(1 + rha)*B[t-1] + I[t] - C[t])
     @constraint(m, [t in 1:ntimesteps(bs)], C[t] >= Cf[t])
     
     local Max
